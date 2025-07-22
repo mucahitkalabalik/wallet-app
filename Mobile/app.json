@@ -8,6 +8,9 @@
     "scheme": "mobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "extra": {
+      "clerkPublishableKey": "pk_test_c3RlYWR5LW11c2tveC0xMS5jbGVyay5hY2NvdW50cy5kZXYk"
+    },
     "ios": {
       "supportsTablet": true
     },
