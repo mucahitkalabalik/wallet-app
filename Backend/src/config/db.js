@@ -14,6 +14,11 @@ export async function connectToDatabase() {
         category VARCHAR(255) NOT NULL,
         created_at DATE NOT NULL DEFAULT CURRENT_DATE
         )`;
+    await sql`CREATE TABLE IF NOT EXISTS users(
+        id SERIAL PRIMARY KEY,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password_hash VARCHAR(255) NOT NULL
+    )`;
     console.log("Database connected successfully");
   } catch (error) {
     console.log("Error connecting to the database:", error);
