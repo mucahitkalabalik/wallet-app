@@ -4,10 +4,11 @@ import rateLimiter from "./middleware/rateLimiter.js";
 import transactionsRoute from "./routes/transactionsRoute.js";
 import authRoute from "./routes/authRoute.js";
 import { connectToDatabase } from "./config/db.js";
-
+import cors from 'cors'; 
 dotenv.config();
 const app = express();
 
+app.use(cors());
 app.use(rateLimiter);
 app.use(express.json()); // Middleware to parse JSON bodies
 const PORT = process.env.PORT || 5001;

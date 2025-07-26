@@ -1,0 +1,11 @@
+{
+  "welcome": "Welcome",
+  "login": "Login",
+  "Password": "Password",
+  "email": "Email",
+  "changeLanguage": "Switch Language",
+  "signIn": "Sign In",
+  "register": "Register",
+  "dontHaveAccount": "Don't have an account?",
+  "alreadyHaveAccount": "Already have an account?"
+}

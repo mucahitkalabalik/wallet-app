@@ -1,0 +1,11 @@
+{
+  "welcome": "Hoşgeldin",
+  "login": "Giriş Yap",
+  "Password": "Parola",
+  "email": "E-posta",
+  "changeLanguage": "Dil Değiştir",
+  "signIn": "Oturum Aç",
+  "register": "Kayıt Ol",
+  "dontHaveAccount": "Hesabın yok mu?",
+  "alreadyHaveAccount": "Zaten bir hesabın var mı?"
+}

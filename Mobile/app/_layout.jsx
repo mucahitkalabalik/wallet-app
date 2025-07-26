@@ -1,11 +1,37 @@
-import { ClerkProvider } from '@clerk/clerk-expo'
-import { tokenCache } from '@clerk/clerk-expo/token-cache'
-import { Slot } from 'expo-router'
+import { Slot, useRouter, usePathname } from "expo-router";
+import { Provider, useSelector } from "react-redux";
+import store from "@/store/redux";
+import React from "react";
+
+function AuthGate({ children }) {
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const router = useRouter();
+  const pathname = usePathname();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (mounted && !isLoggedIn && pathname !== "/signin") {
+      if (pathname === "/register") {
+        router.replace("/register");
+        return;
+      }
+      router.replace("/signin");
+    }
+  }, [isLoggedIn, pathname, mounted]);
+
+  return children;
+}
 
 export default function RootLayout() {
   return (
-    <ClerkProvider tokenCache={tokenCache}>
-      <Slot />
-    </ClerkProvider>
-  )
+    <Provider store={store}>
+      <AuthGate>
+        <Slot />
+      </AuthGate>
+    </Provider>
+  );
 }
