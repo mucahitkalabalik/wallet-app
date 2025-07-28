@@ -5,22 +5,27 @@ import axiosInstance from "@/api/axios";
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
-    console.log("Registering user with data:", userData);
     try {
-      console.log(axiosInstance, "axios");
-
       const response = await axiosInstance.post("/auth/register", userData);
-      console.log("Register response:", response.data);
 
       if (response.status === 201) {
-        console.log("Registration successful:", response.data);
+        return response.data;
       }
-
-      // Assuming the response contains user data
-
-      return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Register failed");
+    }
+  }
+);
+export const verifyEmail = createAsyncThunk(
+  "auth/verifyEmail",
+  async (code, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/auth/verify-email", code);
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || "code failed");
     }
   }
 );

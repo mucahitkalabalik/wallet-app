@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "extra": {
       "clerkPublishableKey": "pk_test_c3RlYWR5LW11c2tveC0xMS5jbGVyay5hY2NvdW50cy5kZXYk",
-      "BaseURL": "http://localhost:5001/api/"
+      "BaseURL": "http://10.0.2.2:5001/api/"
     },
     "ios": {
       "supportsTablet": true

@@ -3,6 +3,8 @@ import { Provider, useSelector } from "react-redux";
 import store from "@/store/redux";
 import React from "react";
 
+import ToastManager from 'toastify-react-native'
+
 function AuthGate({ children }) {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const router = useRouter();
@@ -32,6 +34,7 @@ export default function RootLayout() {
       <AuthGate>
         <Slot />
       </AuthGate>
+      <ToastManager />
     </Provider>
   );
 }

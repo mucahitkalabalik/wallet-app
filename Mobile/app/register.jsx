@@ -11,7 +11,9 @@ import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "@/store/slices/authSlice";
+import { Toast } from "toastify-react-native";
 
+import Verification from "@/components/Verification";
 import COLORS from "../constants/colors";
 import PrimaryButton from "../components/PrimaryButton";
 
@@ -22,13 +24,22 @@ export default function RegisterScreen() {
   const router = useRouter();
   const dispatch = useDispatch();
   const { loading, error, success } = useSelector((state) => state.auth);
-
+  const [verificationModal, setVerificationModal] = useState(false);
   let img = require("../assets/images/revenue-i4.png");
 
   const register = async () => {
     console.log("Registering with email:", email, "and password:", password);
+    if (!email || !password) {
+      Toast.error("Please fill in all fields.", "top-right");
+      return;
+    }
     try {
-      await dispatch(registerUser({ email, password }));
+      const res = await dispatch(registerUser({ email, password }));
+      console.log("Component Registration response:", res);
+      if (res) {
+        setVerificationModal(true);
+      }
+      
     } catch (err) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
@@ -44,7 +55,7 @@ export default function RegisterScreen() {
         transition={1000}
         style={styles.logo}
       />
-      <Text style={styles.title}>Register</Text>
+      <Text style={styles.title}>{t("register")}</Text>
       <TextInput
         style={styles.input}
         placeholder={t("email")}
@@ -69,6 +80,13 @@ export default function RegisterScreen() {
           <Text style={styles.switchLink}>{t("signIn")}</Text>
         </TouchableOpacity>
       </View>
+      {verificationModal && (
+        <Verification
+          visible={verificationModal}
+          onClose={() => setVerificationModal(!verificationModal)}
+          email={email}
+        />
+      )}
     </View>
   );
 }

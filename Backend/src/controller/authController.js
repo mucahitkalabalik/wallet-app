@@ -56,6 +56,8 @@ export async function loginUser(req, res) {
 
 export async function verifyEmail(req, res) {
   const { email, code } = req.body;
+  console.log("Verifying email:", email, "with code:", code);
+  
   if (!email || !code) {
     return res.status(400).json({ error: "Email and code are required." });
   }
