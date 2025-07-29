@@ -10,7 +10,7 @@ function generateVerificationCode() {
 }
 
 export async function registerUser(req, res) {
-  const { email, password } = req.body;
+  const { email, password, username } = req.body;
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required." });
   }
@@ -19,8 +19,8 @@ export async function registerUser(req, res) {
     const code = generateVerificationCode();
     const expires = new Date(Date.now() + 1000 * 60 * 10); // 10 minutes
     await sql`
-      INSERT INTO users (email, password_hash, is_verified, verification_code, verification_code_expires)
-      VALUES (${email}, ${hashedPassword}, false, ${code}, ${expires})
+      INSERT INTO users (email, password_hash, username,  is_verified, verification_code, verification_code_expires)
+      VALUES (${email}, ${hashedPassword}, ${username}, false, ${code}, ${expires})
     `;
     await sendVerificationEmail(email, code);
     res
@@ -51,10 +51,10 @@ export async function loginUser(req, res) {
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid email or password." });
     }
-    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
       expiresIn: "7d",
     });
-    res.status(200).json({ email, token });
+    res.status(200).json({ email, token, username: user.username });
   } catch (err) {
     res.status(500).json({ error: "Server error." });
   }

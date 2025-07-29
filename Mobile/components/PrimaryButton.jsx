@@ -5,8 +5,11 @@ let PrimaryButton = ({ onClick, text, btnColor, textColor, loading = false }) =>
   return (
     <TouchableOpacity
       onPress={onClick}
-      style={[styles.button, { backgroundColor: btnColor || COLORS.primary }]}
-      disabled={loading} 
+      style={[
+        styles.button,
+        { backgroundColor: btnColor || COLORS.primary },
+        loading && { pointerEvents: 'none', opacity: 0.6 }, 
+      ]}
     >
       {loading ? (
         <ActivityIndicator size="small" color={textColor || COLORS.white} />

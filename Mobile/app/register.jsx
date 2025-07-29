@@ -22,27 +22,25 @@ export default function RegisterScreen() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setName] = useState("");
   const router = useRouter();
   const dispatch = useDispatch();
-  const { loading, error, success } = useSelector((state) => state.auth);
+  const { loading } = useSelector((state) => state.auth);
   const [verificationModal, setVerificationModal] = useState(false);
   let img = require("../assets/images/revenue-i4.png");
 
   const register = async () => {
-    console.log("Registering with email:", email, "and password:", password);
     if (!email || !password) {
       Toast.error("Please fill in all fields.", "top-right");
       return;
     }
     try {
-      const res = await dispatch(registerUser({ email, password }));
+      const res = await dispatch(registerUser({ email, password ,username }));
       console.log("Component Registration response:", res);
       if (res) {
         setVerificationModal(true);
       }
     } catch (err) {
-      // See https://clerk.com/docs/custom-flows/error-handling
-      // for more info on error handling
       console.error(JSON.stringify(err, null, 2));
     }
   };
@@ -67,6 +65,14 @@ export default function RegisterScreen() {
           placeholderTextColor={COLORS.textLight}
           value={email}
           onChangeText={setEmail}
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder={t("name")}
+          placeholderTextColor={COLORS.textLight}
+          value={username}
+          onChangeText={setName}
           autoCapitalize="none"
         />
         <TextInput

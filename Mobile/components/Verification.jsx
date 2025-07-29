@@ -35,11 +35,9 @@ const Verification = ({ visible, onClose, email }) => {
 
   async function verify() {
     const verificationCode = code.join("");
-    console.log("Verification code entered:", verificationCode);
     await dispatch(verifyEmail({ email, code: verificationCode }))
       .then((response) => {
         if (response) {
-          console.log("in iff");
           Toast.success("Verification successful!", "top-right");
           router.push("/login");
         } else {
@@ -47,7 +45,6 @@ const Verification = ({ visible, onClose, email }) => {
         }
       })
       .catch((error) => {
-        console.error("Verification error:", error);
         Toast.error("Verification failed. Please try again.", "top-right");
       });
 

@@ -34,13 +34,11 @@ export default function SignInScreen() {
     }
     try {
       const res = await dispatch(signIn({ email, password }));
-      console.log(res, "response from signIn");
 
-      if (res) {
+      if (res.meta.requestStatus === "fulfilled") {
         router.push("/home");
       } else {
         Toast.error("Sign in failed. Please try again.", "top-right");
-        console.error("Sign in failed:", res);
       }
     } catch (err) {
       console.error(JSON.stringify(err, null, 2));

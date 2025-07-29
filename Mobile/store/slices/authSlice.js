@@ -36,7 +36,8 @@ export const signIn = createAsyncThunk("auth/signIn", async (data) => {
     console.log(response, "response from signIn");
 
     if (response.status === 200) {
-      return true;
+      state.signSuccess = true;
+      return response.data;
     }
   } catch (err) {
     return false;
@@ -99,8 +100,8 @@ const authSlice = createSlice({
         state.signSuccess = false;
       })
       .addCase(signIn.fulfilled, (state, action) => {
-        state.signInLoading = false;
         state.signSuccess = true;
+        state.signInLoading = false;
         state.signUser = action.payload;
         state.token = action.payload.token;
         axiosInstance.defaults.headers.common[

@@ -3,7 +3,6 @@ import "dotenv/config";
 
 export const sql = neon(process.env.DATABASE_URL);
 
-
 export async function connectToDatabase() {
   try {
     await sql`CREATE TABLE IF NOT EXISTS transactions(
@@ -17,7 +16,8 @@ export async function connectToDatabase() {
     await sql`CREATE TABLE IF NOT EXISTS users(
         id SERIAL PRIMARY KEY,
         email VARCHAR(255) UNIQUE NOT NULL,
-        password_hash VARCHAR(255) NOT NULL
+        password_hash VARCHAR(255) NOT NULL,
+        username VARCHAR(255) NOT NULL
     )`;
     try {
       await sql`ALTER TABLE users ADD COLUMN is_verified BOOLEAN DEFAULT FALSE`;
