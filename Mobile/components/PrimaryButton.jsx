@@ -1,15 +1,20 @@
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet, ActivityIndicator } from "react-native";
 import COLORS from "../constants/colors";
 
-let PrimaryButton = ({ onClick, text, btnColor, textColor }) => {
+let PrimaryButton = ({ onClick, text, btnColor, textColor, loading = false }) => {
   return (
     <TouchableOpacity
       onPress={onClick}
       style={[styles.button, { backgroundColor: btnColor || COLORS.primary }]}
+      disabled={loading} 
     >
-      <Text style={[styles.buttonText, { color: textColor || COLORS.white }]}>
-        {text}
-      </Text>
+      {loading ? (
+        <ActivityIndicator size="small" color={textColor || COLORS.white} />
+      ) : (
+        <Text style={[styles.buttonText, { color: textColor || COLORS.white }]}>
+          {text}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 };

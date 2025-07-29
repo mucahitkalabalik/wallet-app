@@ -10,18 +10,42 @@ import COLORS from "../constants/colors";
 import { useRouter } from "expo-router";
 import { Image } from "expo-image";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { signIn } from "@/store/slices/authSlice";
+import { Toast } from "toastify-react-native";
+
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import PrimaryButton from "../components/PrimaryButton";
 
 export default function SignInScreen() {
+  const dispatch = useDispatch();
+  const { signInLoading } = useSelector((state) => state.auth);
   const { t } = useTranslation();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("test@email.com");
+  const [password, setPassword] = useState("123123");
   const router = useRouter();
   let img = require("../assets/images/revenue-i2.png");
 
-  const sign = () => {
+  const sign = async () => {
     console.log("sign button clicked");
+    console.log("Signing in with email:", email, "and password:", password);
+    if (!email || !password) {
+      Toast.error("Please fill in all fields.", "top-right");
+      return;
+    }
+    try {
+      const res = await dispatch(signIn({ email, password }));
+      console.log("Component SignIn response:", res);
+      if (res.meta.requestStatus === "fulfilled") {
+        router.push("/home");
+      } else {
+        Toast.error("Sign in failed. Please try again.", "top-right");
+        console.error("Sign in failed:", res);
+      }
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2));
+      Toast.error("Sign in failed. Please try again.", "top-right");
+    }
   };
 
   return (
@@ -50,10 +74,7 @@ export default function SignInScreen() {
         secureTextEntry
       />
 
-      <PrimaryButton
-        onClick={sign}
-        text={t("signIn")}
-      />
+      <PrimaryButton onClick={sign} text={t("login")} loading={signInLoading} />
       <LanguageSwitcher />
 
       <View style={styles.switchContainer}>

@@ -9,7 +9,7 @@ i18n
   .use(initReactI18next)
   .init({
     compatibilityJSON: 'v3', // Expo için önemli
-    lng: 'tr', // varsayılan dil
+    lng: 'en', // varsayılan dil
     fallbackLng: 'en',
     resources: {
       en: { translation: en },

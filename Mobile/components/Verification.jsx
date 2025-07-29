@@ -8,9 +8,10 @@ import {
 } from "react-native";
 import Modal from "react-native-modal";
 import COLORS from "../constants/colors";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import PrimaryButton from "../components/PrimaryButton";
+
 import { verifyEmail } from "@/store/slices/authSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Toast } from "toastify-react-native";
 import { useRouter } from "expo-router";
 
@@ -19,6 +20,7 @@ const Verification = ({ visible, onClose, email }) => {
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const inputs = useRef([]);
   const dispatch = useDispatch();
+  const { verifyLoading } = useSelector((state) => state.auth);
 
   const handleChange = (text, index) => {
     if (text.length > 1) return;
@@ -31,10 +33,10 @@ const Verification = ({ visible, onClose, email }) => {
     }
   };
 
-  function verify() {
+  async function verify() {
     const verificationCode = code.join("");
     console.log("Verification code entered:", verificationCode);
-    dispatch(verifyEmail({ email, code: verificationCode }))
+    await dispatch(verifyEmail({ email, code: verificationCode }))
       .then((response) => {
         if (response) {
           console.log("in iff");
@@ -74,13 +76,13 @@ const Verification = ({ visible, onClose, email }) => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={verify} style={styles.button}>
-            <Text style={styles.buttonText}> Accept </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={onClose} style={styles.button}>
-            <Text style={styles.buttonText}>Close</Text>
-          </TouchableOpacity>
+            <PrimaryButton
+              onClick={verify}
+              text="Verify"
+              btnColor={COLORS.primary}
+              textColor={COLORS.white}
+              loading={verifyLoading}
+            />
         </View>
       </View>
     </Modal>
@@ -119,14 +121,9 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 10,
+    marginTop: 20,
+    gap: 4,
     width: "100%",
-  },
-  button: {
-    backgroundColor: COLORS.primary,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
   },
   buttonText: {
     color: COLORS.white,

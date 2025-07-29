@@ -39,7 +39,6 @@ export default function RegisterScreen() {
       if (res) {
         setVerificationModal(true);
       }
-      
     } catch (err) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
@@ -73,7 +72,11 @@ export default function RegisterScreen() {
         secureTextEntry
       />
 
-      <PrimaryButton onClick={register} text={t("register")} />
+      <PrimaryButton
+        onClick={register}
+        text={t("register")}
+        loading={loading}
+      />
       <View style={styles.switchContainer}>
         <Text style={styles.switchText}>{t("alreadyHaveAccount")}</Text>
         <TouchableOpacity onPress={() => router.push("/signin")}>

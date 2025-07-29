@@ -11,9 +11,16 @@ const axiosInstance = axios.create({
   },
 });
 
+// axiosInstance.interceptors.request.use((request) => {
+//   const token = getAuthToken();
+//   if (token) {
+//     request.headers.Authorization = `Bearer ${token}`;
+//     console.log("Authorization header set:", request.headers.Authorization);
+//   } else {
+//     console.log("No token found, not setting Authorization header");
+//   }
+//   console.log("Request headers:", request.headers);
 
-// axiosInstance.interceptors.request.use(request => {
-//   console.log('📤 Request:', request);
 //   return request;
 // });
 

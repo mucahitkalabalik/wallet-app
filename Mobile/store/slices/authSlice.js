@@ -30,6 +30,22 @@ export const verifyEmail = createAsyncThunk(
   }
 );
 
+export const signIn = createAsyncThunk(
+  "auth/signIn",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/auth/login", data);
+      console.log(response, "response from signIn");
+
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || "code failed");
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -37,14 +53,30 @@ const authSlice = createSlice({
     error: null,
     success: false,
     user: null,
-    isLoggedIn: false, // Add this to track login state
+    isLoggedIn: false,
+    verifyLoading: false,
+    verifyError: null,
+    verifySuccess: false,
+    signInLoading: false,
+    signError: null,
+    signSuccess: false,
+    signUser: null,
+    token: null,
   },
   reducers: {
     resetRegisterState: (state) => {
       state.loading = false;
       state.error = null;
       state.success = false;
+      state.verifyLoading = false;
+      state.verifyError = null;
+      state.verifySuccess = false;
       state.user = null;
+      state.signInLoading = false;
+      state.signError = null;
+      state.signSuccess = false;
+      state.signUser = null;
+      state.token = null;
     },
   },
   extraReducers: (builder) => {
@@ -63,6 +95,40 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
         state.success = false;
+      })
+      .addCase(signIn.pending, (state) => {
+        state.signInLoading = true;
+        state.signError = null;
+        state.signSuccess = false;
+      })
+      .addCase(signIn.fulfilled, (state, action) => {
+        state.signInLoading = false;
+        state.signSuccess = true;
+        state.signUser = action.payload;
+        state.token = action.payload.token;
+        axiosInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${action.payload.token}`;
+        state.isLoggedIn = true;
+      })
+      .addCase(signIn.rejected, (state, action) => {
+        state.signInLoading = false;
+        state.signError = action.payload;
+        state.signSuccess = false;
+      })
+      .addCase(verifyEmail.pending, (state) => {
+        state.verifyLoading = true;
+        state.verifyError = null;
+        state.verifySuccess = false;
+      })
+      .addCase(verifyEmail.fulfilled, (state) => {
+        state.verifyLoading = false;
+        state.verifySuccess = true;
+      })
+      .addCase(verifyEmail.rejected, (state, action) => {
+        state.verifyLoading = false;
+        state.verifyError = action.payload;
+        state.verifySuccess = false;
       });
   },
 });

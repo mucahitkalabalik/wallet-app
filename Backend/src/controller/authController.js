@@ -23,10 +23,14 @@ export async function registerUser(req, res) {
       VALUES (${email}, ${hashedPassword}, false, ${code}, ${expires})
     `;
     await sendVerificationEmail(email, code);
-    res.status(201).json({ message: "Registration successful, please verify your email." });
+    res
+      .status(201)
+      .json({ message: "Registration successful, please verify your email." });
   } catch (err) {
     if (err.code === "23505") {
-      return res.status(409).json({ error: "A user with this email already exists." });
+      return res
+        .status(409)
+        .json({ error: "A user with this email already exists." });
     }
     res.status(500).json({ error: "Server error." });
   }
@@ -47,8 +51,10 @@ export async function loginUser(req, res) {
     if (!isMatch) {
       return res.status(401).json({ error: "Invalid email or password." });
     }
-    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, { expiresIn: "7d" });
-    res.status(200).json({ token });
+    const token = jwt.sign({ userId: user.id, email: user.email }, JWT_SECRET, {
+      expiresIn: "7d",
+    });
+    res.status(200).json({ email, token });
   } catch (err) {
     res.status(500).json({ error: "Server error." });
   }
@@ -57,7 +63,7 @@ export async function loginUser(req, res) {
 export async function verifyEmail(req, res) {
   const { email, code } = req.body;
   console.log("Verifying email:", email, "with code:", code);
-  
+
   if (!email || !code) {
     return res.status(400).json({ error: "Email and code are required." });
   }
@@ -86,4 +92,4 @@ export async function verifyEmail(req, res) {
   } catch (err) {
     res.status(500).json({ error: "Server error." });
   }
-} 
+}
