@@ -12,6 +12,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "@/store/slices/authSlice";
 import { Toast } from "toastify-react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import Verification from "@/components/Verification";
 import COLORS from "../constants/colors";
@@ -47,50 +48,56 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={img}
-        contentFit="cover"
-        transition={1000}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>{t("register")}</Text>
-      <TextInput
-        style={styles.input}
-        placeholder={t("email")}
-        placeholderTextColor={COLORS.textLight}
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder={t("Password")}
-        placeholderTextColor={COLORS.textLight}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-
-      <PrimaryButton
-        onClick={register}
-        text={t("register")}
-        loading={loading}
-      />
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchText}>{t("alreadyHaveAccount")}</Text>
-        <TouchableOpacity onPress={() => router.push("/signin")}>
-          <Text style={styles.switchLink}>{t("signIn")}</Text>
-        </TouchableOpacity>
-      </View>
-      {verificationModal && (
-        <Verification
-          visible={verificationModal}
-          onClose={() => setVerificationModal(!verificationModal)}
-          email={email}
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      extraScrollHeight={100}
+      enableAutomaticScroll={true}
+    >
+      <View style={styles.container}>
+        <Image
+          source={img}
+          contentFit="cover"
+          transition={1000}
+          style={styles.logo}
         />
-      )}
-    </View>
+        <Text style={styles.title}>{t("register")}</Text>
+        <TextInput
+          style={styles.input}
+          placeholder={t("email")}
+          placeholderTextColor={COLORS.textLight}
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder={t("Password")}
+          placeholderTextColor={COLORS.textLight}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+
+        <PrimaryButton
+          onClick={register}
+          text={t("register")}
+          loading={loading}
+        />
+        <View style={styles.switchContainer}>
+          <Text style={styles.switchText}>{t("alreadyHaveAccount")}</Text>
+          <TouchableOpacity onPress={() => router.push("/signin")}>
+            <Text style={styles.switchLink}>{t("signIn")}</Text>
+          </TouchableOpacity>
+        </View>
+        {verificationModal && (
+          <Verification
+            visible={verificationModal}
+            onClose={() => setVerificationModal(!verificationModal)}
+            email={email}
+          />
+        )}
+      </View>
+    </KeyboardAwareScrollView>
   );
 }
 

@@ -30,21 +30,18 @@ export const verifyEmail = createAsyncThunk(
   }
 );
 
-export const signIn = createAsyncThunk(
-  "auth/signIn",
-  async (data, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.post("/auth/login", data);
-      console.log(response, "response from signIn");
+export const signIn = createAsyncThunk("auth/signIn", async (data) => {
+  try {
+    const response = await axiosInstance.post("/auth/login", data);
+    console.log(response, "response from signIn");
 
-      if (response.status === 200) {
-        return response.data;
-      }
-    } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "code failed");
+    if (response.status === 200) {
+      return true;
     }
+  } catch (err) {
+    return false;
   }
-);
+});
 
 const authSlice = createSlice({
   name: "auth",

@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "@/store/slices/authSlice";
 import { Toast } from "toastify-react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import LanguageSwitcher from "../components/LanguageSwitcher";
 import PrimaryButton from "../components/PrimaryButton";
@@ -27,16 +28,15 @@ export default function SignInScreen() {
   let img = require("../assets/images/revenue-i2.png");
 
   const sign = async () => {
-    console.log("sign button clicked");
-    console.log("Signing in with email:", email, "and password:", password);
     if (!email || !password) {
       Toast.error("Please fill in all fields.", "top-right");
       return;
     }
     try {
       const res = await dispatch(signIn({ email, password }));
-      console.log("Component SignIn response:", res);
-      if (res.meta.requestStatus === "fulfilled") {
+      console.log(res, "response from signIn");
+
+      if (res) {
         router.push("/home");
       } else {
         Toast.error("Sign in failed. Please try again.", "top-right");
@@ -49,42 +49,52 @@ export default function SignInScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <Image
-        source={img}
-        contentFit="cover"
-        transition={1000}
-        style={styles.logo}
-      />
-      <Text style={styles.title}>{t("login")}</Text>
-      <TextInput
-        style={styles.input}
-        placeholder={t("email")}
-        placeholderTextColor={COLORS.textLight}
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder={t("Password")}
-        placeholderTextColor={COLORS.textLight}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
+    <KeyboardAwareScrollView
+      contentContainerStyle={{ flexGrow: 1 }}
+      extraScrollHeight={100}
+      enableAutomaticScroll={true}
+    >
+      <View style={styles.container}>
+        <Image
+          source={img}
+          contentFit="cover"
+          transition={1000}
+          style={styles.logo}
+        />
+        <Text style={styles.title}>{t("login")}</Text>
+        <TextInput
+          style={styles.input}
+          placeholder={t("email")}
+          placeholderTextColor={COLORS.textLight}
+          value={email}
+          onChangeText={setEmail}
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={styles.input}
+          placeholder={t("Password")}
+          placeholderTextColor={COLORS.textLight}
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
 
-      <PrimaryButton onClick={sign} text={t("login")} loading={signInLoading} />
-      <LanguageSwitcher />
+        <PrimaryButton
+          onClick={sign}
+          text={t("login")}
+          loading={signInLoading}
+        />
+        <LanguageSwitcher />
 
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchText}>{t("dontHaveAccount")}</Text>
+        <View style={styles.switchContainer}>
+          <Text style={styles.switchText}>{t("dontHaveAccount")}</Text>
 
-        <TouchableOpacity onPress={() => router.push("/register")}>
-          <Text style={styles.switchLink}>{t("register")}</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={() => router.push("/register")}>
+            <Text style={styles.switchLink}>{t("register")}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
 
