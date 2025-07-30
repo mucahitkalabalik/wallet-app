@@ -8,10 +8,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/config/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Backend/src/controller/authController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/authController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/controller/transactionsController.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/controller/transactionsController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mobile/app/home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/app/home.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/app/register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/app/register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/app/signin.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/app/signin.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/components/Verification.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/components/Verification.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mobile/store/slices/authSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/store/slices/authSlice.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

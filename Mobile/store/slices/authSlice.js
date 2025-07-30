@@ -16,6 +16,8 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+// ✅ Verify Email thunk
 export const verifyEmail = createAsyncThunk(
   "auth/verifyEmail",
   async (code, { rejectWithValue }) => {
@@ -25,25 +27,31 @@ export const verifyEmail = createAsyncThunk(
         return response.data;
       }
     } catch (err) {
-      return rejectWithValue(err.response?.data?.message || "code failed");
+      return rejectWithValue(err.response?.data?.message || "Verification failed");
     }
   }
 );
 
-export const signIn = createAsyncThunk("auth/signIn", async (data) => {
-  try {
-    const response = await axiosInstance.post("/auth/login", data);
-    console.log(response, "response from signIn");
+// ✅ Sign In thunk
+export const signIn = createAsyncThunk(
+  "auth/signIn",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post("/auth/login", data);
+      console.log(response.data, "response from signIn");
 
-    if (response.status === 200) {
-      state.signSuccess = true;
-      return response.data;
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        return rejectWithValue("Login failed with unexpected status code.");
+      }
+    } catch (err) {
+      return rejectWithValue(err.response?.data?.message || "Login failed");
     }
-  } catch (err) {
-    return false;
   }
-});
+);
 
+// ✅ Auth Slice
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -52,9 +60,11 @@ const authSlice = createSlice({
     success: false,
     user: null,
     isLoggedIn: false,
+
     verifyLoading: false,
     verifyError: null,
     verifySuccess: false,
+
     signInLoading: false,
     signError: null,
     signSuccess: false,
@@ -66,19 +76,25 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = null;
       state.success = false;
+
       state.verifyLoading = false;
       state.verifyError = null;
       state.verifySuccess = false;
+
       state.user = null;
+
       state.signInLoading = false;
       state.signError = null;
       state.signSuccess = false;
       state.signUser = null;
       state.token = null;
+
+      state.isLoggedIn = false;
     },
   },
   extraReducers: (builder) => {
     builder
+      // ✅ Register User
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -94,26 +110,29 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.success = false;
       })
+
+      // ✅ Sign In
       .addCase(signIn.pending, (state) => {
         state.signInLoading = true;
         state.signError = null;
         state.signSuccess = false;
       })
       .addCase(signIn.fulfilled, (state, action) => {
-        state.signSuccess = true;
         state.signInLoading = false;
+        state.signSuccess = true;
         state.signUser = action.payload;
         state.token = action.payload.token;
-        axiosInstance.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${action.payload.token}`;
+        axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${action.payload.token}`;
         state.isLoggedIn = true;
       })
       .addCase(signIn.rejected, (state, action) => {
         state.signInLoading = false;
         state.signError = action.payload;
         state.signSuccess = false;
+        state.isLoggedIn = false;
       })
+
+      // ✅ Verify Email
       .addCase(verifyEmail.pending, (state) => {
         state.verifyLoading = true;
         state.verifyError = null;
