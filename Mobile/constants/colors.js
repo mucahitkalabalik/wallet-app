@@ -1,6 +1,7 @@
 // constants/colors.js
 const coffeeTheme = {
   primary: "#8B593E",
+  primaryOp: "#9e7660e5",
   background: "#FFF8F3",
   text: "#4A3428",
   border: "#E5D3B7",
@@ -14,6 +15,8 @@ const coffeeTheme = {
 
 const forestTheme = {
   primary: "#2E7D32",
+  primaryOp: "#56a55ac2",
+
   background: "#E8F5E9",
   text: "#1B5E20",
   border: "#C8E6C9",
@@ -27,6 +30,8 @@ const forestTheme = {
 
 const purpleTheme = {
   primary: "#6A1B9A",
+  primaryOp: "#8c52b1c0",
+
   background: "#F3E5F5",
   text: "#4A148C",
   border: "#D1C4E9",
@@ -40,6 +45,8 @@ const purpleTheme = {
 
 const oceanTheme = {
   primary: "#0277BD",
+  primaryOp: "#468db6c0",
+
   background: "#E1F5FE",
   text: "#01579B",
   border: "#B3E5FC",

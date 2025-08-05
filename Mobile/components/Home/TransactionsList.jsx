@@ -1,6 +1,9 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import COLORS from "../../constants/colors";
 import { formatDateTR } from "../../utils/dateFormatter";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function TransactionsList({ transactions }) {
   console.log("Transactions component rendered with data:", transactions);
@@ -10,20 +13,30 @@ export default function TransactionsList({ transactions }) {
       {transactions && transactions.length > 0 ? (
         transactions.map((transaction, index) => (
           <View key={index} style={styles.transactionItem}>
-            <Text>icon</Text>
+            <FontAwesome5
+              name="money-bill-wave"
+              size={24}
+              color={
+                transaction.category === "expense"
+                  ? COLORS.expense
+                  : COLORS.income
+              }
+            />
             <View style={styles.transactionDetails}>
               <View>
-                <Text style={styles.textWhite}>{transaction.title}</Text>
+                <Text style={styles.secondTitle}>{transaction.title}</Text>
                 <Text style={styles.textWhite}>{transaction.category}</Text>
               </View>
               <View>
-                <Text style={styles.textWhite}>{transaction.amount}</Text>
+                <Text style={styles.secondTitle}>{transaction.amount}</Text>
                 <Text style={styles.textWhite}>
                   {formatDateTR(transaction.created_at)}
                 </Text>
               </View>
             </View>
-            <Text>del</Text>
+            <TouchableOpacity>
+              <MaterialIcons name="delete-outline" size={24} color="white" />
+            </TouchableOpacity>
           </View>
         ))
       ) : (
@@ -44,9 +57,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginVertical: 5,
     borderRadius: 10,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.primaryOp,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   transactionDetails: {
     flexDirection: "row",
@@ -60,6 +74,11 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   textWhite: {
+    color: COLORS.white,
+  },
+  secondTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
     color: COLORS.white,
   },
 });
