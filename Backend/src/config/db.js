@@ -5,7 +5,6 @@ export const sql = neon(process.env.DATABASE_URL);
 
 export async function connectToDatabase() {
   try {
-    // ✅ users tablosunu oluştur
     await sql`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -18,7 +17,6 @@ export async function connectToDatabase() {
       );
     `;
 
-    // ✅ transactions tablosunu oluştur + foreign key bağlantısı
     await sql`
       CREATE TABLE IF NOT EXISTS transactions (
         id SERIAL PRIMARY KEY,
@@ -33,6 +31,6 @@ export async function connectToDatabase() {
     console.log("✅ Database connected and tables ensured.");
   } catch (error) {
     console.error("❌ Error connecting to the database:", error);
-    process.exit(1); // Hata olursa uygulamayı durdur
+    process.exit(1);
   }
 }

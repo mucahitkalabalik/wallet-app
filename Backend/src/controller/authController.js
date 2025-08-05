@@ -5,12 +5,10 @@ import { sendVerificationEmail } from "../utils/mailer.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 
-// 🔐 6 haneli doğrulama kodu üretir
 function generateVerificationCode() {
   return Math.floor(100000 + Math.random() * 900000).toString();
 }
 
-// ✅ Kayıt işlemi
 export async function registerUser(req, res) {
   const { email, password, username } = req.body;
 
@@ -21,7 +19,7 @@ export async function registerUser(req, res) {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     const code = generateVerificationCode();
-    const expires = new Date(Date.now() + 10 * 60 * 1000); // 10 dakika sonrası
+    const expires = new Date(Date.now() + 10 * 60 * 1000); 
 
     await sql`
       INSERT INTO users (email, password_hash, username, is_verified, verification_code, verification_code_expires)
@@ -42,7 +40,6 @@ export async function registerUser(req, res) {
   }
 }
 
-// ✅ Giriş işlemi
 export async function loginUser(req, res) {
   const { email, password } = req.body;
 
@@ -61,7 +58,6 @@ export async function loginUser(req, res) {
       return res.status(401).json({ error: "Invalid email or password." });
     }
 
-    // Opsiyonel: E-posta doğrulanmamışsa girişe izin verme
     if (!user.is_verified) {
       return res.status(403).json({ error: "Please verify your email before logging in." });
     }
@@ -81,7 +77,6 @@ export async function loginUser(req, res) {
   }
 }
 
-// ✅ E-posta doğrulama işlemi
 export async function verifyEmail(req, res) {
   const { email, code } = req.body;
 

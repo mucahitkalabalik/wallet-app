@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors());
 app.use(rateLimiter);
-app.use(express.json()); // Middleware to parse JSON bodies
+app.use(express.json()); 
 const PORT = process.env.PORT || 5001;
 
 app.use("/api/transactions", transactionsRoute);
@@ -20,4 +20,4 @@ connectToDatabase().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-}); // Start the server after connecting to the database
+}); 

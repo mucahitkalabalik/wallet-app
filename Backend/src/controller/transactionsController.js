@@ -1,6 +1,5 @@
 import { sql } from "../config/db.js";
 
-// ✅ Tüm transaction'ları userId'ye göre getir
 export async function getTransactionsByUserId(req, res) {
   try {
     const userId = parseInt(req.params.userId, 10);
@@ -22,7 +21,6 @@ export async function getTransactionsByUserId(req, res) {
   }
 }
 
-// ✅ Yeni transaction oluştur
 export async function createTransaction(req, res) {
   try {
     const { title, amount, category, user_id } = req.body;
@@ -52,7 +50,6 @@ export async function createTransaction(req, res) {
   }
 }
 
-// ✅ Transaction sil
 export async function deleteTransaction(req, res) {
   try {
     const id = parseInt(req.params.id, 10);
@@ -75,7 +72,6 @@ export async function deleteTransaction(req, res) {
   }
 }
 
-// ✅ Kullanıcının gelir/gider/bakiye özetini getir
 export async function getSummaryById(req, res) {
   try {
     const userId = parseInt(req.params.userId, 10);
