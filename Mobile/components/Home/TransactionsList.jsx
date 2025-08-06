@@ -6,7 +6,6 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function TransactionsList({ transactions }) {
-  console.log("Transactions component rendered with data:", transactions);
 
   return (
     <View style={styles.container}>
