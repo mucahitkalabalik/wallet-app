@@ -30,7 +30,7 @@ A full-featured wallet application built with **React Native (Expo)** for the mo
 
 ---
 
-<img width="180" height="415" alt="login" src="https://github.com/user-attachments/assets/878818fd-3867-4862-9716-5c36fdf08345" />
+<img width="183" height="445" alt="login" src="https://github.com/user-attachments/assets/878818fd-3867-4862-9716-5c36fdf08345" />
 
 <img width="183" height="445" alt="register" src="https://github.com/user-attachments/assets/d81d8dd6-7335-4186-b6b4-17584f188164" />
 
