@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import COLORS from "../../constants/colors";
 import { formatDateTR } from "../../utils/dateFormatter";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function TransactionsList({ transactions }) {
@@ -25,17 +24,17 @@ export default function TransactionsList({ transactions }) {
             <View style={styles.transactionDetails}>
               <View>
                 <Text style={styles.secondTitle}>{transaction.title}</Text>
-                <Text style={styles.textWhite}>{transaction.category}</Text>
+                <Text >{transaction.category}</Text>
               </View>
               <View>
                 <Text style={styles.secondTitle}>{transaction.amount}</Text>
-                <Text style={styles.textWhite}>
+                <Text >
                   {formatDateTR(transaction.created_at)}
                 </Text>
               </View>
             </View>
             <TouchableOpacity>
-              <MaterialIcons name="delete-outline" size={24} color="white" />
+              <MaterialIcons name="delete-outline" size={26} color="white" />
             </TouchableOpacity>
           </View>
         ))
@@ -48,7 +47,6 @@ export default function TransactionsList({ transactions }) {
 
 const styles = StyleSheet.create({
   container: {
-    color: COLORS.white,
     borderRadius: 20,
     margin: 10,
   },
@@ -79,6 +77,6 @@ const styles = StyleSheet.create({
   secondTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: COLORS.white,
+
   },
 });
