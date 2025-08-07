@@ -72,6 +72,7 @@ const authSlice = createSlice({
     token: null,
   },
   reducers: {
+
     resetRegisterState: (state) => {
       state.loading = false;
       state.error = null;

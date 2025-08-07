@@ -1,8 +1,9 @@
 import { Slot, useRouter, usePathname } from "expo-router";
+import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
 import { Provider, useSelector } from "react-redux";
 import store from "@/store/redux";
 import React from "react";
-
+import Nav from "@/components/Navigation/Nav";
 import ToastManager from "toastify-react-native";
 
 function AuthGate({ children }) {
@@ -16,6 +17,8 @@ function AuthGate({ children }) {
   }, []);
 
   React.useEffect(() => {
+    console.log('change pathname', pathname,isLoggedIn);
+    
     if (mounted && !isLoggedIn && pathname !== "/signin") {
       if (pathname === "/register") {
         router.replace("/register");
@@ -29,12 +32,42 @@ function AuthGate({ children }) {
 }
 
 export default function RootLayout() {
+  const pathname = usePathname();
+  const hideNav = pathname === "/signin" || pathname === "/register";
+
   return (
     <Provider store={store}>
       <AuthGate>
-        <Slot />
+        <View style={styles.container}>
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={[
+              styles.scrollContent,
+              hideNav && { paddingBottom: 0 },
+            ]}
+          >
+            <Slot />
+          </ScrollView>
+          {!hideNav && <Nav />}
+        </View>
       </AuthGate>
       <ToastManager />
     </Provider>
   );
 }
+
+const screenHeight = Dimensions.get("window").height;
+const navHeight = screenHeight * 0.1;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scroll: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: navHeight,
+  },
+});
