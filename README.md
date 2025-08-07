@@ -24,9 +24,9 @@ A full-featured wallet application built with **React Native (Expo)** for the mo
 - ✅ JWT-based Authentication
 - ✅ Wallet balance tracking
 - ✅ Transaction history
-- ✅ Add / Remove funds
+-     Add / Remove funds
 - ✅ Secure API with token validation
-- ✅ Persistent session management (Redis)
+-     Persistent session management (Redis)
 
 ---
 
