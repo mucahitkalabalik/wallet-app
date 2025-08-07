@@ -4,7 +4,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import COLORS from "@/constants/colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useDispatch } from "react-redux";
-import { resetRegisterState } from "@/store/slices/authSlice"; // doğru yoldan import et
+import { resetRegisterState } from "@/store/slices/authSlice"; 
 
 export default function Nav() {
   const pathname = usePathname();

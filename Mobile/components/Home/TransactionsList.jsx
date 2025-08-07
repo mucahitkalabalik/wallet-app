@@ -2,13 +2,14 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import COLORS from "../../constants/colors";
 import { formatDateTR } from "../../utils/dateFormatter";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
 export default function TransactionsList({ transactions }) {
-
+  console.log(transactions,'transactions');
+  
   return (
     <View style={styles.container}>
-      {transactions && transactions.length > 0 ? (
+      {transactions ? (
         transactions.map((transaction, index) => (
           <View key={index} style={styles.transactionItem}>
             <FontAwesome5
@@ -23,13 +24,11 @@ export default function TransactionsList({ transactions }) {
             <View style={styles.transactionDetails}>
               <View>
                 <Text style={styles.secondTitle}>{transaction.title}</Text>
-                <Text >{transaction.category}</Text>
+                <Text>{transaction.category}</Text>
               </View>
               <View>
                 <Text style={styles.secondTitle}>{transaction.amount}</Text>
-                <Text >
-                  {formatDateTR(transaction.created_at)}
-                </Text>
+                <Text>{formatDateTR(transaction.created_at)}</Text>
               </View>
             </View>
             <TouchableOpacity>
@@ -38,7 +37,7 @@ export default function TransactionsList({ transactions }) {
           </View>
         ))
       ) : (
-        <Text style={styles.noTransactionsText}>No transactions found</Text>
+        <Text>Loading...</Text>
       )}
     </View>
   );
@@ -76,6 +75,5 @@ const styles = StyleSheet.create({
   secondTitle: {
     fontSize: 16,
     fontWeight: "bold",
-
   },
 });
