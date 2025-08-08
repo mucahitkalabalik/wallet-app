@@ -5,6 +5,7 @@ export const sql = neon(process.env.DATABASE_URL);
 
 export async function connectToDatabase() {
   try {
+    // Users tablosu
     await sql`
       CREATE TABLE IF NOT EXISTS users (
         id SERIAL PRIMARY KEY,
@@ -17,6 +18,7 @@ export async function connectToDatabase() {
       );
     `;
 
+    // Transactions tablosu
     await sql`
       CREATE TABLE IF NOT EXISTS transactions (
         id SERIAL PRIMARY KEY,
@@ -28,7 +30,19 @@ export async function connectToDatabase() {
       );
     `;
 
-    console.log("✅ Database connected and tables ensured.");
+    // Transactions sequence'i otomatik güncelle
+    const seqResult = await sql`
+      SELECT pg_get_serial_sequence('transactions', 'id') AS seq_name;
+    `;
+
+    const seqName = seqResult[0]?.seq_name;
+    if (seqName) {
+      await sql`
+        SELECT setval(${seqName}, (SELECT COALESCE(MAX(id), 0) FROM transactions) + 1);
+      `;
+    }
+
+    console.log("✅ Database connected, tables ensured, sequence fixed.");
   } catch (error) {
     console.error("❌ Error connecting to the database:", error);
     process.exit(1);

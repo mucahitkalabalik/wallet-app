@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 
-// ✅ Register thunk
 export const getTransactions = createAsyncThunk(
   "transactions/getTransactions",
   async (userId, { rejectWithValue }) => {
@@ -24,13 +23,28 @@ export const getSummary = createAsyncThunk(
         `/transactions/summary/${userId}`
       );
 
-      console.log(response, "redux log");
-
       if (response.status === 200) {
         return response.data;
       }
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || "Register failed");
+    }
+  }
+);
+
+export const createTransaction = createAsyncThunk(
+  "transactions/createTransaction",
+  async (data, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.post(`/transactions`, data);
+
+      if (response.status === 201) {
+        return response.data;
+      }
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data?.message || "Transaction failed"
+      );
     }
   }
 );
@@ -53,7 +67,7 @@ const transactionSlice = createSlice({
     builder.addCase(getTransactions.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      state.transactions = action.payload.transactions; 
+      state.transactions = action.payload.transactions;
     });
     builder.addCase(getTransactions.rejected, (state, action) => {
       state.loading = false;
@@ -66,11 +80,23 @@ const transactionSlice = createSlice({
     builder.addCase(getSummary.fulfilled, (state, action) => {
       state.loading = false;
       state.success = true;
-      state.summary = action.payload.summary; 
+      state.summary = action.payload.summary;
     });
     builder.addCase(getSummary.rejected, (state, action) => {
       state.loading = false;
       state.error = action.payload || "Failed to fetch summary";
+    });
+    builder.addCase(createTransaction.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    });
+    builder.addCase(createTransaction.fulfilled, (state, action) => {
+      state.loading = false;
+      state.success = true;
+    });
+    builder.addCase(createTransaction.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.payload || "Failed to create transaction";
     });
   },
 });

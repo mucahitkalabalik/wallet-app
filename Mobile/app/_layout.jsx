@@ -5,6 +5,7 @@ import store from "@/store/redux";
 import React from "react";
 import Nav from "@/components/Navigation/Nav";
 import ToastManager from "toastify-react-native";
+import COLORS from "@/constants/colors";
 
 function AuthGate({ children }) {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -62,6 +63,7 @@ const navHeight = screenHeight * 0.1;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: COLORS.background,
   },
   scroll: {
     flex: 1,

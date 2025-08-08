@@ -6,8 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="4efe0c13-3322-4ff2-99ed-306388ed6504" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/components/Home/TotalBalance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/components/Home/TotalBalance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Backend/src/config/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/Backend/src/config/db.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/app/_layout.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/app/_layout.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/app/create.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/app/create.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Mobile/components/Home/TransactionsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/components/Home/TransactionsList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/store/redux.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/store/redux.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/store/slices/authSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/store/slices/authSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/store/slices/transactionSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/store/slices/transactionSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "@/api/axios";
 
-// ✅ Register thunk
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userData, { rejectWithValue }) => {
@@ -17,7 +16,6 @@ export const registerUser = createAsyncThunk(
   }
 );
 
-// ✅ Verify Email thunk
 export const verifyEmail = createAsyncThunk(
   "auth/verifyEmail",
   async (code, { rejectWithValue }) => {
@@ -32,14 +30,11 @@ export const verifyEmail = createAsyncThunk(
   }
 );
 
-// ✅ Sign In thunk
 export const signIn = createAsyncThunk(
   "auth/signIn",
   async (data, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.post("/auth/login", data);
-      console.log(response.data, "response from signIn");
-
       if (response.status === 200) {
         return response.data;
       } else {
@@ -95,7 +90,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // ✅ Register User
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -112,7 +106,6 @@ const authSlice = createSlice({
         state.success = false;
       })
 
-      // ✅ Sign In
       .addCase(signIn.pending, (state) => {
         state.signInLoading = true;
         state.signError = null;
@@ -133,7 +126,6 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
       })
 
-      // ✅ Verify Email
       .addCase(verifyEmail.pending, (state) => {
         state.verifyLoading = true;
         state.verifyError = null;
