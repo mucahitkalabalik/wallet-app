@@ -11,26 +11,21 @@ import XLSX from "xlsx";
 
 async function exportToExcel(data) {
   try {
-    // 1. JSON -> Excel dönüştür
     const worksheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Transactions");
 
-    // 2. Excel dosyasını binary olarak yaz
     const excelBinary = XLSX.write(workbook, {
       type: "base64",
       bookType: "xlsx",
     });
 
-    // 3. Kaydedilecek dosya yolu
     const filePath = FileSystem.documentDirectory + "transactions.xlsx";
 
-    // 4. Dosyayı yaz
     await FileSystem.writeAsStringAsync(filePath, excelBinary, {
       encoding: FileSystem.EncodingType.Base64,
     });
 
-    // 5. Paylaş
     if (await Sharing.isAvailableAsync()) {
       await Sharing.shareAsync(filePath);
     } else {
