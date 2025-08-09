@@ -1,5 +1,4 @@
 import jwt from "jsonwebtoken";
-
 const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
 
 export function authenticateToken(req, res, next) {
