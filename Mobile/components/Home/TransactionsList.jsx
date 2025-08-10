@@ -3,8 +3,18 @@ import COLORS from "../../constants/colors";
 import { formatDateTR } from "../../utils/dateFormatter";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { deleteTransaction } from "@/store/slices/transactionSlice";
+import { useDispatch, useSelector } from "react-redux";
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function TransactionsList({ transactions }) {
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.transactions);
+
+  // const deleteTransactionById = (transactionId) => {
+  //   dispatch(deleteTransaction(transactionId));
+  // };
+
   return (
     <View style={styles.container}>
       {transactions ? (
@@ -30,7 +40,16 @@ export default function TransactionsList({ transactions }) {
               </View>
             </View>
             <TouchableOpacity>
-              <MaterialIcons name="delete-outline" size={26} color="white" />
+              {loading ? (
+                <Entypo
+                  name="dots-three-horizontal"
+                  size={16}
+                  color="white"
+                  style={{ marginRight: 10 }}
+                />
+              ) : (
+                <MaterialIcons name="delete-outline" size={26} color="white" />
+              )}
             </TouchableOpacity>
           </View>
         ))

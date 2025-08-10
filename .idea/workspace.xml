@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4efe0c13-3322-4ff2-99ed-306388ed6504" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/components/Home/HeaderSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/components/Home/HeaderSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Mobile/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/components/Home/TransactionsList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/components/Home/TransactionsList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/components/Navigation/Nav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/components/Navigation/Nav.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/constants/colors.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/constants/colors.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mobile/store/slices/transactionSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/Mobile/store/slices/transactionSlice.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

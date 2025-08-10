@@ -1,10 +1,11 @@
-import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import COLORS from "@/constants/colors";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import COLORS, { changeTheme as changeThemeFn } from "@/constants/colors"; // ✅ changeTheme fonksiyonunu doğru import et
+
 import { useDispatch } from "react-redux";
-import { resetRegisterState } from "@/store/slices/authSlice"; 
+import { resetRegisterState } from "@/store/slices/authSlice";
 
 export default function Nav() {
   const pathname = usePathname();
@@ -14,6 +15,14 @@ export default function Nav() {
   const logOut = () => {
     dispatch(resetRegisterState());
     router.replace("/signin");
+  };
+
+  const handleThemeChange = () => {
+    console.log("Changing theme to coffee");
+    const newTheme = changeThemeFn("forest"); // ✅ constants/colors.js içindeki fonksiyon
+    console.log("New theme:", newTheme);
+    location.reload(); // Sayfayı yenile
+    // Burada newTheme'i global state veya context ile uygulamaya set etmen lazım
   };
 
   return (
@@ -28,6 +37,7 @@ export default function Nav() {
           color={pathname === "/home" ? COLORS.primary : COLORS.primaryOp}
         />
       </TouchableOpacity>
+
       <TouchableOpacity
         onPress={() => router.push("/create")}
         style={styles.addButton}
@@ -38,6 +48,15 @@ export default function Nav() {
           color={pathname === "/create" ? COLORS.primary : COLORS.primaryOp}
         />
       </TouchableOpacity>
+
+      <TouchableOpacity style={styles.addButton}>
+        <Ionicons
+          name="color-palette-outline"
+          size={30}
+          color={COLORS.primaryOp}
+        />
+      </TouchableOpacity>
+
       <TouchableOpacity onPress={logOut} style={styles.addButton}>
         <AntDesign name="logout" size={30} color={COLORS.primaryOp} />
       </TouchableOpacity>
@@ -52,7 +71,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "10%",
     backgroundColor: COLORS.primary,
-    borderColor: "#ccc",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",

@@ -49,6 +49,25 @@ export const createTransaction = createAsyncThunk(
   }
 );
 
+export const deleteTransaction = createAsyncThunk(
+  "transactions/deleteTransaction",
+  async (transactionId, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.delete(
+        `/transactions/${transactionId}`
+      );
+
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (err) {
+      return rejectWithValue(
+        err.response?.data?.message || "Delete transaction failed"
+      );
+    }
+  }
+);
+
 const transactionSlice = createSlice({
   name: "transactions",
   initialState: {

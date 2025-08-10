@@ -65,6 +65,23 @@ export const THEMES = {
   ocean: oceanTheme,
 };
 
+export const changeTheme = (theme) => {
+  console.log(`Changing theme to: ${theme}`);
+  
+  switch (theme) {
+    case "coffee":
+      return coffeeTheme;
+    case "forest":
+      return forestTheme;
+    case "purple":
+      return purpleTheme;
+    case "ocean":
+      return oceanTheme;
+    default:
+      return coffeeTheme; // Default theme
+  }
+};
+
 // 👇 change this to switch theme
 export const COLORS = THEMES.purple;
 export default COLORS;
