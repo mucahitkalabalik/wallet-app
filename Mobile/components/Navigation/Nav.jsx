@@ -2,7 +2,7 @@ import { View, StyleSheet, TouchableOpacity } from "react-native";
 import { useRouter, usePathname } from "expo-router";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import COLORS, { changeTheme as changeThemeFn } from "@/constants/colors"; // ✅ changeTheme fonksiyonunu doğru import et
+import COLORS, { changeTheme as changeThemeFn } from "@/constants/colors";
 
 import { useDispatch } from "react-redux";
 import { resetRegisterState } from "@/store/slices/authSlice";
@@ -19,10 +19,9 @@ export default function Nav() {
 
   const handleThemeChange = () => {
     console.log("Changing theme to coffee");
-    const newTheme = changeThemeFn("forest"); // ✅ constants/colors.js içindeki fonksiyon
+    const newTheme = changeThemeFn("forest"); 
     console.log("New theme:", newTheme);
-    location.reload(); // Sayfayı yenile
-    // Burada newTheme'i global state veya context ile uygulamaya set etmen lazım
+    location.reload(); 
   };
 
   return (
