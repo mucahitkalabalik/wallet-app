@@ -3,9 +3,7 @@ import COLORS from "@/constants/colors";
 import { useState } from "react";
 import Feather from "@expo/vector-icons/Feather";
 
-function Tabs( {activeTab, setActiveTab} ) {
-
-
+function Tabs({ activeTab, setActiveTab }) {
   return (
     <View style={styles.tabContainer}>
       <TouchableOpacity
@@ -14,7 +12,7 @@ function Tabs( {activeTab, setActiveTab} ) {
           activeTab === "expense" ? styles.tabButtonActive : styles.tabButton
         }
       >
-        <Feather name="arrow-down-circle" size={24} color="white" />
+        <Feather name="arrow-up-circle" size={24} color="white" />
         <Text style={styles.tabText}>expense</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -23,10 +21,10 @@ function Tabs( {activeTab, setActiveTab} ) {
           activeTab === "income" ? styles.tabButtonActive : styles.tabButton
         }
       >
-        <Feather name="arrow-up-circle" size={24} color="white" />
+        <Feather name="arrow-down-circle" size={24} color="white" />
         <Text style={styles.tabText}>income</Text>
       </TouchableOpacity>
-    </View> 
+    </View>
   );
 }
 

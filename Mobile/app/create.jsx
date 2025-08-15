@@ -35,12 +35,19 @@ function Create() {
 
   const handleSaveTransaction = async () => {
     if (amount && title) {
+      let parsedAmount = parseFloat(amount);
+
+      if (activeTab === "expense" && parsedAmount > 0) {
+        parsedAmount = -parsedAmount;
+      }
+
       let data = {
         category: activeTab,
         title: title,
-        amount: parseFloat(amount),
+        amount: parsedAmount,
         user_id: signUser.userId,
       };
+
       await dispatch(createTransaction(data));
       setAmount("");
       setTitle("");
