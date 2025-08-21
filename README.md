@@ -1,5 +1,4 @@
 # 💸 Wallet App
-
 A full-featured wallet application built with **React Native (Expo)** for the mobile frontend, and **Node.js**, **PostgreSQL**, and **Redis** on the backend.
 
 ## 🧩 Tech Stack
