@@ -12,7 +12,7 @@ function home() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const userId = signUser?.userId; // Assuming signUser contains the user ID
+    const userId = signUser?.userId; 
     if (userId) {
       dispatch(getTransactions(userId));
       dispatch(getSummary(userId));

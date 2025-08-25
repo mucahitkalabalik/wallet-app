@@ -8,8 +8,8 @@ import tr from './locales/tr.json';
 i18n
   .use(initReactI18next)
   .init({
-    compatibilityJSON: 'v3', // Expo için önemli
-    lng: 'en', // varsayılan dil
+    compatibilityJSON: 'v3', 
+    lng: 'en', 
     fallbackLng: 'en',
     resources: {
       en: { translation: en },
